@@ -5,15 +5,9 @@ import List from './List';
 import Pagination from './pagination';
 import IndividualData from './Individualdata';
 
-
-const username = 'nsragvi@gmail.com';
-const password = 'Anasuya@97';
-const encodedBase64Token = Buffer.from(`${username}:${password}`).toString('base64');
-const authorization = `Basic ${encodedBase64Token}`;
-
 function App2() {
-  const [responseData, setResponseData] = React.useState([]);
-  const [loading,setLoading] = useState(false);
+  const [responseData, setResponseData] = useState([]);
+  const [loading,setLoading] = useState(true);
 
   //as we are looking to start with the first page
   const [ currentPage, setCurrentPage] = useState(1);
@@ -50,11 +44,7 @@ function App2() {
     
     //we can set the loading to true
     setLoading(true);
-    axios.get('http://localhost:9000/test', {
-      headers: {
-        Authorization: authorization,
-      },
-    })
+    axios.get('http://localhost:9000/server')
   
       .then((response: AxiosResponse) => {
         //console.log("Response receieved"+response.data);
@@ -72,22 +62,17 @@ function App2() {
         if (error.response) {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
-            console.log("here");
-            seterrormsg(' Observered an issue while retrieving data from server');
+            seterrormsg('Observered an issue while retrieving data from server..please check your credentials and try again');
         } else if (error.request) {
             // The request was made but no response was received
             // `error.request` is an instance of XMLHttpRequest in the 
             // browser and an instance of
-            // http.ClientRequest in node.js
-            console.log("there");
-            console.log(error.request);
             seterrormsg('Some issue with the request being made..please check again');
         } else {
             // Something happened in setting up the request that triggered an Error
-            console.log('Error', error.message);
             seterrormsg('Unable to retrieve data please make sure you got everythin right');
         }
-        console.log(error.config);
+        // console.log(error.config);
       });
       
             
@@ -110,8 +95,11 @@ function App2() {
     if(errorstatus)
     return false;
     else{
-      if(!responseData)
-      return false;
+      if(!responseData){
+        seterrormsg("The response we got is nothing");
+        return false;
+      }
+      
     }
 
     return true;
@@ -124,6 +112,7 @@ function App2() {
       {check_ifallgood() && individualData && <h1 className= "text-primary mb-3"> 
         Ticket Details
       </h1>}
+    {loading && <h2>Loading....</h2>}
     {!check_ifallgood() && <h3 className = "text-error mb-3"> {errormsg} </h3>}
     {check_ifallgood() && !individualData && <List requests={currentPosts} loading ={loading} getdata ={getdata}></List>} 
     {check_ifallgood() && !individualData && <Pagination postsperPage={postsperPage} totalPosts={responseData.length} paginate={paginate}></Pagination>}

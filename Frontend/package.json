@@ -31,8 +31,17 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
-    ]
+      "react-app/jest",
+      "plugin:react-hooks/recommended"
+    ],
+    "plugins": [
+      "react-hooks"
+    ],
+    "rules": {
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn"
+    }
+  
   },
   "browserslist": {
     "production": [
@@ -48,7 +57,11 @@
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
+    "@types/enzyme": "^3.10.10",
     "@types/express": "^4.17.13",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.5",
+    "enzyme": "^3.11.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
     "webpack-cli": "^4.9.1"
   }
 }

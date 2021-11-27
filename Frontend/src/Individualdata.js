@@ -12,11 +12,11 @@ const IndividualData = (props) => {
 
     return (
         <div className="info">
-            <p>
+            <p aria-label="Subject">
                 Subject : {data[index - 1].subject}
             </p>
             <p>
-                Description : {requiredata.description}
+                Description : {data[index - 1].description}
             </p>
             <p>
                 Priority : {requiredata.priority}
