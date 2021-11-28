@@ -1,11 +1,8 @@
-import React from 'react';
 import { render, screen , within } from '@testing-library/react';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-import { shallow,configure } from 'enzyme';
+import {configure } from 'enzyme';
 import App2 from './App';
 import Pagination from './pagination';
-import List from './List';
-import mockAxios from "jest-mock-axios";
 import IndividualData from './Individualdata';
 configure({adapter: new Adapter()});
 
@@ -79,37 +76,8 @@ const props_ind = {
 
   });
 });
-describe("fetchUsers", () => {
-  afterEach(() => {
-    mockAxios.reset();
-  });
 
-  describe("when API call is successful", () => {
-    it("should return users list",() => {
-      // given
-      // const users = [
-      //   { id: 1, name: "John" },
-      //   { id: 2, name: "Andrew" },
-      // ];
-      //mockAxios.get.mockResolvedValueOnce(users);
-
-      // when
-      const result = App2();
-
-      // then
-      expect(mockAxios.get).toHaveBeenCalledWith('http://localhost:9000/test');
-      //expect(result).toEqual(users);
-    });
-  });
-});
-// });
-
-
-
-
-
-
-//for the pagination trying it here
+//pagination component
 const abc = {
 postsperPage : 25,
 totalPosts :100,
@@ -128,41 +96,3 @@ it('pagination - number of pages to navigate', () =>{
   expect(items.length).toBe(4)
   expect(links.length).toBe(4)
 });
-
-//listing the tickets
-// const props = {
-//   responseData : [{},{}],
-//   loading : true
-//   }
-//   it('loading...', () =>{
-  
-//     render(<IndividualData{...props}/>)
-  
-//     const heading = screen.getByRole("heading", {
-//       name: 'loading....',
-//     })
-//     expect(heading).toBeInTheDocument();
-//   });
-
-  // const props_false = {
-  //   responseData : [{
-  //     id : 1,
-  //     subject : "First one"
-  //   },{
-  //     id: 2,
-  //     subject : "Second one"
-  //   }],
-  //   loading : false
-  //   }
-  // it('listing', () =>{
-  
-  //   render(<List{...props_false}/>)
-  
-  //   const req_lists = screen.getByRole("list", {
-  //     name: 'ls',
-  //   })
-  // const { getAllByRole } = within(req_lists)
-  // const items = getAllByRole("listitem")
-  // expect(items.length).toBe(4)
-  // });
-
